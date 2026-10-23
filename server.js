@@ -45,6 +45,10 @@ app.get('/lessons', function(request,response){
    ]
    response.json(LessonsArray);
 });
+app.use(function(request,response,next){
+    console.log("In comes a request to: " + request.url);
+    next();
+});
 
 app.post('/orders', function(request,response){
     var body = request.body;
