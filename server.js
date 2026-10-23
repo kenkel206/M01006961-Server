@@ -1,12 +1,14 @@
 var express = require('express');
 var app = express();
 var cors = require('cors');
-
+app.use(express.json());
 app.use(cors());
 
-
-app.use(function(request,response){
+app.use(function(request,response,next){
     console.log("In comes a request to: " + request.url);
+    next();
+});
+app.get('/lessons', function(request,response){
     let LessonsArray = [
 {
     LessonID:1,
@@ -14,7 +16,6 @@ app.use(function(request,response){
     availability:10,
     location:"56B",
     Price: 25,
-    image:"https://images.unsplash.com/photo-1509228468518-180dd4864904?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     alt: "math"
 },
 {
@@ -43,6 +44,20 @@ app.use(function(request,response){
 },
    ]
    response.json(LessonsArray);
+});
+
+app.post('/orders', function(request,response){
+    var body = request.body;
+    console.log("order received: " 
+        + "\nName: " + body.name 
+        + "\nPhone: " + body.phone 
+        + "\nEmail: " + body.email);
+    response.json({message: "Order received successfully"});
+});
+
+app.use(function(request,response,next){
+    response.status(404);
+    response.send("File not found");
 });
 
 app.listen(3000, function(){
