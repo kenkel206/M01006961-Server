@@ -17,15 +17,15 @@ app.get('/lessons', function(request,response){
     availability:10,
     location:"56B",
     Price: 25,
-    alt: "math"
+    alt: "Math"
 },
 {
     LessonID: 2,
-    Subject: "science",
+    Subject: "Science",
     availability:20,
     location:201,
     Price:30,
-    alt: "science"
+    alt: "Science"
 },
 {
     LessonID: 3,
@@ -55,8 +55,8 @@ app.post('/orders', function(request,response){
     var body = request.body;
     console.log("order received: " 
         + "\nName: " + body.name 
-        + "\nPhone: " + body.phone 
-        + "\nEmail: " + body.email);
+        + "\nPhone: " + body.Phone 
+        + "\nEmail: " + body.Email);
     response.json({message: "Order received successfully"});
 });
 
