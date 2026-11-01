@@ -17,6 +17,7 @@ app.get('/lessons', function(request,response){
     availability:10,
     location:"56B",
     Price: 25,
+    image: "images/Math.jpg",
     alt: "math"
 },
 {
@@ -25,6 +26,7 @@ app.get('/lessons', function(request,response){
     availability:20,
     location:201,
     Price:30,
+    image: "images/Science.jpg",
     alt: "science"
 },
 {
@@ -33,6 +35,7 @@ app.get('/lessons', function(request,response){
     availability:15,
     location:202,
     Price:25,
+    image: "images/English.jpg",
     alt: "English"
 },
 {
@@ -41,6 +44,7 @@ app.get('/lessons', function(request,response){
     availability:25,
     location:203,
     Price:20,
+    image: "images/History.jpg",
     alt: "History"
 },
    ];
