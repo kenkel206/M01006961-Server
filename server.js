@@ -2,8 +2,27 @@ var express = require('express');
 var app = express();
 var cors = require('cors');
 var path = require('path');
+require("dotenv").config({ path: "./atlas-credentials.env" });
 app.use(express.json());
 app.use(cors());
+
+const uri =  process.env.MONGODB_URI;
+
+const { MongoClient } = require("mongodb");
+const client = new MongoClient(uri);
+
+const db = client.db("Website");
+
+async function connectToMongoDB() {
+    try {
+        await client.connect();
+        console.log("Connected to MongoDB Atlas");
+        return client;
+    } catch (error) {
+        console.dir(error);
+    }
+}
+ connectToMongoDB();
 
 app.use(function(request,response,next){
     console.log("In comes a request to: " + request.url);
