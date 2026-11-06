@@ -9,47 +9,11 @@ app.use(function(request,response,next){
     console.log("In comes a request to: " + request.url);
     next();
 });
-app.get('/lessons', function(request,response){
-    let LessonsArray = [
-{
-    LessonID:1,
-    Subject: "Math",
-    availability:10,
-    location:"56B",
-    Image: "images/math.jpg",
-    Price: 25,
-    alt: "Math"
-},
-{
-    LessonID: 2,
-    Subject: "Science",
-    availability:20,
-    location:201,
-    Image: "images/science.jpg",
-    Price:30,
-    alt: "Science"
-},
-{
-    LessonID: 3,
-    Subject: "English",
-    availability:15,
-    location:202,
-    Image: "images/english.jpg",
-    Price:25,
-    alt: "English"
-},
-{
-    LessonID: 4,
-    Subject: "History",
-    availability:25,
-    location:203,
-    Image: "images/history.jpg",
-    Price:20,
-    alt: "History"
-},
-   ];
-   response.json(LessonsArray);
-});
+app.get('/lessons', async function(request,response){
+let collection = await db.collection("Lessons");  
+let results = await collection.find({}).toArray();  
+response.send(results); 
+   });
 app.use(function(request,response,next){
     console.log("In comes a request to: " + request.url);
     next();
