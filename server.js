@@ -14,26 +14,52 @@ let collection = await db.collection("Lessons");
 let results = await collection.find({}).toArray();  
 response.send(results); 
    });
+
 app.use(function(request,response,next){
     console.log("In comes a request to: " + request.url);
     next();
 });
 
-app.post('/orders', function(request,response){
+app.post('/orders', async function(request,response){
     var body = request.body;
-    console.log("order received: " 
-        + "\nName: " + body.name 
-        + "\nPhone: " + body.Phone 
-        + "\nEmail: " + body.Email);
-    response.json({message: "Order received successfully"});
+    let collection = await db.collection("orders");
+    let result = await collection.insertOne(body);
+    response.send(result)
 });
 
+app.put("/lessons/:_id", async function(request, response) { 
+    var body = request.body; 
+    let collection = await db.collection("Lessons"); 
+    let tempid = request.params._id; 
+     
+    const query = { _id: new ObjectId(tempid) }; 
+    const updates = { 
+      $set: request.body 
+    }; 
+    result = await collection.updateOne(query, updates); 
+    response.send(result); 
+    console.log(result); 
+});
 
 var PublicPath = path.resolve(__dirname, "images");
 app.use("/images", express.static(PublicPath));
 app.use("/images", function(request,response){
    response.status(404).send("Image not found!");
 });
+app.put("/lessons/:_id", async function(request, response) { 
+ 
+    var body = request.body; 
+    let collection = await db.collection("Lessons"); 
+    let tempid = request.params._id; 
+     
+    const query = { _id: new ObjectId(tempid) }; 
+    const updates = { 
+      $set: request.body 
+    }; 
+    result = await collection.updateOne(query, updates); 
+    response.send(result); 
+    console.log(result); 
+}); 
 app.use(function(request,response,next){
     response.status(404);
     response.send("Error 404: Page not found");
