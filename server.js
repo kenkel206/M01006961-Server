@@ -44,6 +44,7 @@ app.post('/orders', async function(request,response){
     let collection = await db.collection("orders");
     let result = await collection.insertOne(body);
     response.send(result)
+    Console.log(result);
 });
 
 app.put("/lessons/:_id", async function(request, response) { 
