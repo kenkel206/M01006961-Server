@@ -44,7 +44,7 @@ app.post('/orders', async function(request,response){
     let collection = await db.collection("orders");
     let result = await collection.insertOne(body);
     response.send(result)
-    Console.log(result);
+    console.log(result);
 });
 
 app.put("/lessons/:_id", async function(request, response) { 
@@ -80,6 +80,15 @@ app.put("/lessons/:_id", async function(request, response) {
     response.send(result); 
     console.log(result); 
 }); 
+
+app.get("/lessons/", async function(request, response){
+    let collection = await db.collection("Lessons");
+    if(!request.query.q)
+        return response.send({error: true, message: "missing query string"});
+
+    const results = await collection.find({$text: {$search: request.query.q}}).toArray();
+    response.send(results);
+});
 app.use(function(request,response,next){
     response.status(404);
     response.send("Error 404: Page not found");
