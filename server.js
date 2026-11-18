@@ -66,20 +66,6 @@ app.use("/images", express.static(PublicPath));
 app.use("/images", function(request,response){
    response.status(404).send("Image not found!");
 });
-app.put("/lessons/:_id", async function(request, response) { 
- 
-    var body = request.body; 
-    let collection = await db.collection("Lessons"); 
-    let tempid = request.params._id; 
-     
-    const query = { _id: new ObjectId(tempid) }; 
-    const updates = { 
-      $set: request.body 
-    }; 
-    result = await collection.updateOne(query, updates); 
-    response.send(result); 
-    console.log(result); 
-}); 
 
 app.get("/lessons/", async function(request, response){
     let collection = await db.collection("Lessons");
