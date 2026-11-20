@@ -23,9 +23,9 @@ async function connectToMongoDB() {
     }
 }
  connectToMongoDB();
-
+//request middleware   
 app.use(function(request,response,next){
-    console.log("In comes a request to: " + request.url);
+    console.log("In comes a request to: " + request.url +" request type: " + request.method + " Request done: " + request.finished);
     next();
 });
 app.get('/lessons', async function(request,response){
@@ -34,11 +34,8 @@ let results = await collection.find({}).toArray();
 response.send(results); 
    });
 
-app.use(function(request,response,next){
-    console.log("In comes a request to: " + request.url);
-    next();
-});
 
+//post req
 app.post('/orders', async function(request,response){
     var body = request.body;
     let collection = await db.collection("orders");
