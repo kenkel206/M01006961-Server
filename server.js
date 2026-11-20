@@ -25,7 +25,7 @@ async function connectToMongoDB() {
  connectToMongoDB();
 //request middleware   
 app.use(function(request,response,next){
-    console.log("In comes a request to: " + request.url +" request type: " + request.method + " Request done: " + request.finished);
+    console.log("In comes a request to: " + request.url +" request type: " + request.method + " Request done: " + request.complete);
     next();
 });
 app.get('/lessons', async function(request,response){
